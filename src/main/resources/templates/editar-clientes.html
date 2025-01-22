@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar Cliente</title>
+</head>
+<body>
+<div class="form-container">
+    <h1>Editar Cliente</h1>
+    <form th:action="@{/clientes/editar/__${cliente.id}__}" method="POST">
+
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" th:field="${cliente.id}" readonly="readonly"/> <!-- Sustituir con el valor dinámico del cliente -->
+
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required th:field="${cliente.nombre}">
+        </div>
+        <div class="form-group">
+            <label for="apellido1">Primer Apellido:</label>
+            <input type="text" id="apellido1" name="apellido1" required th:field="${cliente.apellido1}">
+        </div>
+        <div class="form-group">
+            <label for="apellido2">Segundo Apellido:</label>
+            <input type="text" id="apellido2" name="apellido2" th:field="${cliente.apellido2}">
+        </div>
+        <div class="form-group">
+            <label for="ciudad">Ciudad:</label>
+            <input type="text" id="ciudad" name="ciudad" required th:field="${cliente.ciudad}">
+        </div>
+        <div class="form-group">
+            <label for="categoria">Categoría:</label>
+            <input type="number" id="categoria" name="categoria" th:field="${cliente.categoria}">
+        </div>
+        <button>Guardar Cambios</button>
+    </form>
+</div>
+</body>
+</html>
+</html>

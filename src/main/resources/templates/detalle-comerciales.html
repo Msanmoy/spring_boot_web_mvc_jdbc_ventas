@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ver detalle Comercial</title>
+</head>
+<body>
+<div class="form-container">
+    <h1>Detalle Comercial</h1>
+    <form th:action="@{/comerciales}" method="GET">
+
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" th:value="${comercial.id}" readonly="readonly"/> <!-- Sustituir con el valor dinámico del cliente -->
+
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required th:value="${comercial.nombre}" readonly="readonly"/>
+        </div>
+        <div class="form-group">
+            <label for="apellido1">Primer Apellido:</label>
+            <input type="text" id="apellido1" name="apellido1" required th:field="${comercial.apellido1}" readonly="readonly"/>
+        </div>
+        <div class="form-group">
+            <label for="apellido2">Segundo Apellido:</label>
+            <input type="text" id="apellido2" name="apellido2" th:field="${comercial.apellido2}" readonly="readonly"/>
+        </div>
+        <div class="form-group">
+            <label for="comision">Comisión:</label>
+            <input type="number" id="comision" name="comision" required th:field="${comercial.comision}" readonly="readonly"/>
+        </div>
+        <button>Volver</button>
+    </form>
+</div>
+</body>
+</html>

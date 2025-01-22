@@ -1,6 +1,6 @@
--- DROP DATABASE IF EXISTS ventas;
--- CREATE DATABASE ventas CHARACTER SET utf8mb4;
--- USE ventas;
+DROP DATABASE IF EXISTS ventas;
+CREATE DATABASE ventas CHARACTER SET utf8mb4;
+USE ventas;
 
 CREATE TABLE cliente (
                          id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -16,7 +16,7 @@ CREATE TABLE comercial (
                            nombre VARCHAR(100) NOT NULL,
                            apellido1 VARCHAR(100) NOT NULL,
                            apellido2 VARCHAR(100),
-                           comisión FLOAT
+                           comision FLOAT
 );
 
 CREATE TABLE pedido (

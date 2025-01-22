@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ver detalle Cliente</title>
+</head>
+<body>
+<div class="form-container">
+    <h1>Detalle Cliente</h1>
+    <form th:action="@{/clientes}" method="GET">
+
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" th:value="${cliente.id}" readonly="readonly"/> <!-- Sustituir con el valor dinámico del cliente -->
+
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required th:value="${cliente.nombre}" readonly="readonly"/>
+        </div>
+        <div class="form-group">
+            <label for="apellido1">Primer Apellido:</label>
+            <input type="text" id="apellido1" name="apellido1" required th:field="${cliente.apellido1}" readonly="readonly"/>
+        </div>
+        <div class="form-group">
+            <label for="apellido2">Segundo Apellido:</label>
+            <input type="text" id="apellido2" name="apellido2" th:field="${cliente.apellido2}" readonly="readonly"/>
+        </div>
+        <div class="form-group">
+            <label for="ciudad">Ciudad:</label>
+            <input type="text" id="ciudad" name="ciudad" required th:field="${cliente.ciudad}" readonly="readonly"/>
+        </div>
+        <div class="form-group">
+            <label for="categoria">Categoría:</label>
+            <input type="number" id="categoria" name="categoria" th:field="${cliente.categoria}" readonly="readonly"/>
+        </div>
+        <button>Volver</button>
+    </form>
+</div>
+</body>
+</html>

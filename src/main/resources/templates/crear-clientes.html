@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+<div class="form-container">
+    <h1>Crear Cliente</h1>
+    <form th:action="@{/clientes/crear}" method="POST">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingrese el nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="apellido1">Primer Apellido:</label>
+            <input type="text" id="apellido1" name="apellido1" placeholder="Ingrese el primer apellido" required>
+        </div>
+        <div class="form-group">
+            <label for="apellido2">Segundo Apellido:</label>
+            <input type="text" id="apellido2" name="apellido2" placeholder="Ingrese el segundo apellido">
+        </div>
+        <div class="form-group">
+            <label for="ciudad">Ciudad:</label>
+            <input type="text" id="ciudad" name="ciudad" placeholder="Ingrese la ciudad" required>
+        </div>
+        <div class="form-group">
+            <label for="categoria">Categoría:</label>
+            <input type="number" id="categoria" name="categoria" placeholder="Ingrese la categoria" required>
+        </div>
+        <button>Crear Cliente</button>
+    </form>
+</div>
+</body>
+</html>
