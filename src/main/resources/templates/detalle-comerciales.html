@@ -57,7 +57,7 @@
                             <strong>Fecha:</strong> <span th:text="${pedido.fecha}"></span>
                         </li>
                         <li class="list-group-item">
-                            <strong>Nombre:</strong> <a th:text="${cliente.nombre}" th:href="@{/clientes/__${cliente.id}__}"></a>
+                            <strong>Nombre:</strong> <a class="link-success" th:text="${cliente.nombre}" th:href="@{/clientes/__${cliente.id}__}"></a>
                         </li>
                     </ul>
                 </div>
