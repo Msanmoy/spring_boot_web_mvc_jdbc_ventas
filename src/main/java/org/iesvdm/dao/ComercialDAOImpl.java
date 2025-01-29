@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.iesvdm.dto.ClienteDTO;
+import org.iesvdm.dto.ComercialDTO;
 import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
+import org.iesvdm.modelo.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -126,6 +130,32 @@ public class ComercialDAOImpl implements ComercialDAO {
 		int rows = jdbcTemplate.update("DELETE FROM comercial WHERE id = ?", id);
 
 		log.info("Delete de Comercial con {} registros eliminados.", rows);
+
+	}
+
+	@Override
+	public ComercialDTO totalPedidos(int id) {
+		String sql = """
+				SELECT count(*) as totalPedidos FROM pedido where id_comercial = ?
+				""";
+
+		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(ComercialDTO.class), id);
+	}
+
+	@Override
+	public ComercialDTO mediaPrecioPedidos(int id) {
+		String sql = """
+				SELECT ROUND(AVG(total),2) as mediaPrecioPedidos FROM pedido where id_comercial = ?
+				""";
+		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(ComercialDTO.class), id);
+	}
+
+	@Override
+	public List<ClienteDTO> listaCuantia(int id) {
+
+		String query = "SELECT c.nombre, ROUND(SUM(p.total), 2)  AS cuantia FROM pedido p JOIN cliente c ON c.id = p.id_cliente WHERE p.id_comercial = ? GROUP BY c.id, c.nombre ORDER BY cuantia DESC;";
+
+		return  jdbcTemplate.query(query, new BeanPropertyRowMapper<>(ClienteDTO.class), id);
 
 	}
 

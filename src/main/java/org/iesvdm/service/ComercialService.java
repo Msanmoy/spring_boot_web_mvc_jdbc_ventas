@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.iesvdm.dao.ComercialDAO;
+import org.iesvdm.dto.ClienteDTO;
+import org.iesvdm.dto.ComercialDTO;
 import org.iesvdm.modelo.Comercial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,10 @@ public class ComercialService {
 
     public void deleteComercial(int id) {
         comercialDAO.delete(id);
+    }
+
+    public List<ClienteDTO> listaCuantia(int id) {
+        return comercialDAO.listaCuantia(id);
     }
 
 }

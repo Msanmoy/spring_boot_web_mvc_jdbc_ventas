@@ -1,8 +1,15 @@
 package org.iesvdm.controlador;
 
+import java.util.Comparator;
 import java.util.List;
 
+import org.iesvdm.dao.ComercialDAO;
+import org.iesvdm.dao.ComercialDAOImpl;
+import org.iesvdm.dao.PedidoDAO;
 import org.iesvdm.dao.PedidoDAOImpl;
+import org.iesvdm.dto.ClienteDTO;
+import org.iesvdm.dto.ComercialDTO;
+import org.iesvdm.dto.PedidoDTO;
 import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
 import org.iesvdm.modelo.Pedido;
@@ -30,6 +37,8 @@ public class ComercialController {
     private PedidoDAOImpl pedidoDAOImpl;
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private ComercialDAOImpl comercialDAOImpl;
 
 
     // LISTAR
@@ -106,6 +115,25 @@ public class ComercialController {
 
         Cliente cliente = clienteService.one(id);
         model.addAttribute("cliente", cliente);
+
+        ComercialDTO totalPedidos = comercialDAOImpl.totalPedidos(id);
+        model.addAttribute("totalPedidos", totalPedidos);
+
+        ComercialDTO mediaPrecioPedidos = comercialDAOImpl.mediaPrecioPedidos(id);
+        model.addAttribute("mediaPrecioPedidos", mediaPrecioPedidos);
+
+        List<PedidoDTO> listaPedidoDTO = pedidoDAOImpl.filtrarPedidoPorComercialIdDTO(id);
+        model.addAttribute("listaPedidoDTO", listaPedidoDTO);
+
+        PedidoDTO pedidoMaximo = listaPedidoDTO.stream().max(Comparator.comparingDouble(PedidoDTO::getTotal)).orElse(null);
+        model.addAttribute("pedidoMaximo", pedidoMaximo);
+
+        PedidoDTO pedidoMinimo = listaPedidoDTO.stream().min(Comparator.comparingDouble(PedidoDTO::getTotal)).orElse(null);
+        model.addAttribute("pedidoMinimo", pedidoMinimo);
+
+        List<ClienteDTO> listaCuantia = comercialService.listaCuantia(id);
+        model.addAttribute("listaCuantia", listaCuantia);
+
 
 
         return "detalle-comerciales";

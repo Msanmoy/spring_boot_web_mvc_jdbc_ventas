@@ -1,5 +1,6 @@
 package org.iesvdm.dao;
 
+import org.iesvdm.dto.PedidoDTO;
 import org.iesvdm.modelo.Pedido;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public interface PedidoDAO {
     public void delete(long id);
 
     public List<Pedido> filtrarPedidoPorComercialId(int id);
+
+    public List<PedidoDTO> filtrarPedidoPorComercialIdDTO(int id);
 
 }
 
