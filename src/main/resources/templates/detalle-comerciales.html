@@ -39,6 +39,31 @@
                 </div>
             </form>
         </div>
+
+        <div class="card mx-auto">
+            <div class="card-header text-center">
+                <h2>Pedidos Comercial</h2>
+            </div>
+            <div class="card-body ">
+                <div th:each="pedido:${listaPedidos}">
+                    <ul class="list-group mb-2">
+                        <li class="list-group-item">
+                            <strong>ID:</strong> <span th:text="${pedido.id}"></span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Total:</strong> <span th:text="${pedido.total}"></span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Fecha:</strong> <span th:text="${pedido.fecha}"></span>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Nombre:</strong> <a th:text="${cliente.nombre}" th:href="@{/clientes/__${cliente.id}__}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

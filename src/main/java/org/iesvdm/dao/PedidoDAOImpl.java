@@ -3,6 +3,7 @@ package org.iesvdm.dao;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.modelo.Pedido;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -117,5 +118,13 @@ public class PedidoDAOImpl implements PedidoDAO{
         int rows = jdbcTemplate.update("DELETE FROM pedido WHERE id = ?", id);
 
         log.info("Delete de Pedido con {} registros eliminados.", rows);
+    }
+
+    @Override
+    public List<Pedido> filtrarPedidoPorComercialId(int id) {
+
+        String sql = "SELECT * FROM pedido WHERE id_comercial = ?";
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Pedido.class), id);
     }
 }

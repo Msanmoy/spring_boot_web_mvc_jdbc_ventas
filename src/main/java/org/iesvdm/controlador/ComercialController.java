@@ -2,10 +2,13 @@ package org.iesvdm.controlador;
 
 import java.util.List;
 
+import org.iesvdm.dao.PedidoDAOImpl;
 import org.iesvdm.modelo.Cliente;
 import org.iesvdm.modelo.Comercial;
+import org.iesvdm.modelo.Pedido;
 import org.iesvdm.service.ClienteService;
 import org.iesvdm.service.ComercialService;
+import org.iesvdm.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,12 @@ public class ComercialController {
 
     @Autowired
     private ComercialService comercialService;
+    @Autowired
+    private PedidoService pedidoService;
+    @Autowired
+    private PedidoDAOImpl pedidoDAOImpl;
+    @Autowired
+    private ClienteService clienteService;
 
 
     // LISTAR
@@ -90,8 +99,14 @@ public class ComercialController {
     public String verDetalle (Model model, @PathVariable Integer id) {
 
         Comercial comercial = comercialService.one(id);
-
         model.addAttribute("comercial", comercial);
+
+        List<Pedido> listaPedidos = pedidoDAOImpl.filtrarPedidoPorComercialId(id);
+        model.addAttribute("listaPedidos", listaPedidos);
+
+        Cliente cliente = clienteService.one(id);
+        model.addAttribute("cliente", cliente);
+
 
         return "detalle-comerciales";
     }

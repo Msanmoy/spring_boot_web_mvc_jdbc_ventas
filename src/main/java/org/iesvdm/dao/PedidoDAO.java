@@ -16,5 +16,7 @@ public interface PedidoDAO {
 
     public void delete(long id);
 
+    public List<Pedido> filtrarPedidoPorComercialId(int id);
+
 }
 
