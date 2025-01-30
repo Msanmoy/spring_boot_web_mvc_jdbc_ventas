@@ -2,6 +2,7 @@ package org.iesvdm.dao;
 
 import java.sql.PreparedStatement;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -35,8 +36,8 @@ public class ComercialDAOImpl implements ComercialDAO {
 	public void create(Comercial comercial) {
 		//Desde java15+ se tiene la triple quote """ para bloques de texto como cadenas.
 		String sqlInsert = """
-							INSERT INTO comercial (nombre, apellido1, apellido2, comision) 
-							VALUES  (     ?,         ?,         ?,       ?)
+							INSERT INTO comercial (nombre, apellido1, apellido2, comision, email) 
+							VALUES  (     ?,         ?,         ?,       ?,		?)
 							""";
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -48,6 +49,7 @@ public class ComercialDAOImpl implements ComercialDAO {
 			ps.setString(idx++, comercial.getApellido1());
 			ps.setString(idx++, comercial.getApellido2());
 			ps.setString(idx++, String.valueOf(comercial.getComision()));
+			ps.setString(idx++, comercial.getEmail());
 			return ps;
 		},keyHolder);
 
@@ -77,7 +79,8 @@ public class ComercialDAOImpl implements ComercialDAO {
                 							  rs.getString("nombre"), 
                 							  rs.getString("apellido1"),
                 							  rs.getString("apellido2"), 
-                							  rs.getBigDecimal("comision"))
+                							  rs.getBigDecimal("comision"),
+						 					  rs.getString("email"))
                 						 	
         );
 		
@@ -94,7 +97,8 @@ public class ComercialDAOImpl implements ComercialDAO {
             						 						rs.getString("nombre"),
             						 						rs.getString("apellido1"),
             						 						rs.getString("apellido2"),
-            						 						rs.getBigDecimal("comision"))
+            						 						rs.getBigDecimal("comision"),
+															rs.getString("email"))
 						,id
 								);
 		
@@ -112,12 +116,14 @@ public class ComercialDAOImpl implements ComercialDAO {
 														nombre = ?,
 														apellido1 = ?,
 														apellido2 = ?,
-														comision = ?
+														comision = ?,
+														email = ?
 												WHERE id = ?
 										""", comercial.getNombre()
 										, comercial.getApellido1()
 										, comercial.getApellido2()
 										, comercial.getComision()
+										, comercial.getEmail()
 										, comercial.getId());
 		
 		log.info("Update de Comercial con {} registros actualizados.", rows);
@@ -145,9 +151,22 @@ public class ComercialDAOImpl implements ComercialDAO {
 	@Override
 	public ComercialDTO mediaPrecioPedidos(int id) {
 		String sql = """
-				SELECT ROUND(AVG(total),2) as mediaPrecioPedidos FROM pedido where id_comercial = ?
-				""";
-		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(ComercialDTO.class), id);
+        SELECT COALESCE(ROUND(AVG(total),2), 0.0) AS mediaPrecioPedidos 
+        FROM pedido 
+        WHERE id_comercial = ?
+    """;
+
+		Map<String, Object> result = jdbcTemplate.queryForMap(sql, id);
+
+		// Obtener el valor de la media y asegurarnos de que no sea null
+		Double mediaPrecioPedidos = (result.get("mediaPrecioPedidos") != null)
+				? ((Number) result.get("mediaPrecioPedidos")).doubleValue()
+				: 0.0;
+
+		ComercialDTO comercial = new ComercialDTO();
+		comercial.setMediaPrecioPedidos(mediaPrecioPedidos);
+
+		return comercial;
 	}
 
 	@Override

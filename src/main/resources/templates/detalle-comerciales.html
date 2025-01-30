@@ -35,6 +35,10 @@
                     <input type="number" id="comision" name="comision" class="form-control" th:field="${comercial.comision}" readonly>
                 </div>
                 <div class="mb-3">
+                    <label for="email" class="form-label" th:text="#{msg.email}"></label>
+                    <input type="text" id="email" name="email" class="form-control" th:value="${comercial.email}" readonly>
+                </div>
+                <div class="mb-3">
                     <label for="totalPedidos" class="form-label">Total Pedidos:</label>
                     <input id="totalPedidos" class="form-control" th:field="${totalPedidos.totalPedidos}">
                 </div>

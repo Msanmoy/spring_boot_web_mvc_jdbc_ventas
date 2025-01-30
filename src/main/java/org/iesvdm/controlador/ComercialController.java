@@ -87,16 +87,26 @@ public class ComercialController {
 
         Comercial comercial = comercialService.one(id);
 
+        if (comercial == null) {
+            throw new RuntimeException("El comercial no existe");
+        }
+
         model.addAttribute("comercial", comercial);
 
         return "editar-comerciales";
     }
 
     @PostMapping("/comerciales/editar/{id}")
-    public RedirectView editarSubmit(@ModelAttribute("comercial") Comercial comercial) {
+    public String editarSubmit(@Valid @ModelAttribute("comercial") Comercial comercial, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("comercial", comercial);
+            return "editar-comerciales";
+        }
+
         comercialService.replaceComercial(comercial);
 
-        return new RedirectView("/comerciales");
+        return "redirect:/comerciales";
 
     }
 

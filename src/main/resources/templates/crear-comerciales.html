@@ -13,29 +13,36 @@
         <div class="mb-3">
             <label for="nombre" class="form-label" th:text="#{msg.form.nombre}"></label>
             <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese el nombre" th:field="*{nombre}">
-            <ul th:if="${#fields.hasErrors('nombre')}">
+            <ul th:if="${#fields.hasErrors('nombre')}" class="bg-warning rounded-1">
                 <li th:each="err : ${#fields.errors('nombre')}" th:text="${err}" class="error"></li>
             </ul>
         </div>
         <div class="mb-3">
             <label for="apellido1" class="form-label" th:text="#{msg.form.apellido1}"></label>
             <input type="text" id="apellido1" name="apellido1" class="form-control" placeholder="Ingrese el primer apellido" th:field="*{apellido1}">
-            <ul th:if="${#fields.hasErrors('apellido1')}">
+            <ul th:if="${#fields.hasErrors('apellido1')}" class="bg-warning rounded-1">
                 <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" class="error"></li>
             </ul>
         </div>
         <div class="mb-3">
             <label for="apellido2" class="form-label" th:text="#{msg.form.apellido2}"></label>
             <input type="text" id="apellido2" name="apellido2" class="form-control" placeholder="Ingrese el segundo apellido" th:field="*{apellido2}">
-            <ul th:if="${#fields.hasErrors('apellido2')}">
+            <ul th:if="${#fields.hasErrors('apellido2')}" class="bg-warning rounded-1">
                 <li th:each="err : ${#fields.errors('apellido2')}" th:text="${err}" class="error"></li>
             </ul>
         </div>
         <div class="mb-3">
             <label for="comision" class="form-label" th:text="#{msg.form.comision}"></label>
-            <input type="number" id="comision" name="comision" class="form-control" placeholder="Ingrese la comisión" th:field="*{comision}">
-            <ul th:if="${#fields.hasErrors('comision')}">
+            <input type="text" id="comision" name="comision" class="form-control" placeholder="Ingrese la comisión" th:field="*{comision}">
+            <ul th:if="${#fields.hasErrors('comision')}" class="bg-warning rounded-1">
                 <li th:each="err : ${#fields.errors('comision')}" th:text="${err}" class="error"></li>
+            </ul>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label" th:text="#{msg.email}"></label>
+            <input type="text" id="email" name="email" class="form-control" placeholder="Ingrese un Email" th:field="*{email}">
+            <ul th:if="${#fields.hasErrors('email')}" class="bg-warning rounded-1">
+                <li th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error"></li>
             </ul>
         </div>
         <button type="submit" class="btn btn-primary" th:text="#{msg.comercial.crear}"></button>

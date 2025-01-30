@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ComercialDTO {
 
-    private int totalPedidos;
-    private double mediaPrecioPedidos;
+    private int totalPedidos = 0;
+    private double mediaPrecioPedidos = 0.0;
 
 }

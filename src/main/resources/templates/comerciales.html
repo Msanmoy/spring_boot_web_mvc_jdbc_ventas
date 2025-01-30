@@ -21,6 +21,7 @@
         <div class="col" th:text="#{msg.apellido2}"></div>
         <div class="col" th:text="#{msg.comision}"></div>
         <div class="col" th:text="#{msg.accion}"></div>
+        <div class="col" th:text="#{msg.email}"></div>
     </div>
     <hr>
     <div th:each="comercial : ${listaComerciales}" class="row text-center align-items-center my-2">
@@ -29,6 +30,7 @@
         <div class="col" th:text="${comercial.apellido1}">apellido1</div>
         <div class="col" th:text="${comercial.apellido2 ?: '&nbsp;'}">apellido2</div>
         <div class="col" th:text="${comercial.comision}">comision</div>
+        <div class="col" th:text="${comercial.email}"></div>
         <div class="col d-flex justify-content-center gap-2">
             <form th:action="@{/comerciales/__${comercial.id}__}" class="d-inline">
                 <button type="submit" class="btn btn-info btn-sm" th:text="#{msg.detalles}"></button>

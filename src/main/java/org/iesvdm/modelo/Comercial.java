@@ -1,9 +1,6 @@
 package org.iesvdm.modelo;
 
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,18 +16,22 @@ public class Comercial {
 
 	private int id;
 
-	@NotBlank(message = "Campo Obligatorio")
-	@Size(max = 30, message = "El nombre no puede sobrepasar la longitud maxima de 30 caracteres")
+	@NotBlank(message = "{msg.error.notBlank}")
+	@Size(max = 30, message = "{msg.error.size30}")
 	private String nombre;
 
-	@NotBlank(message = "Campo Obligatorio")
-	@Size(max = 30, message = "El Apellido no puede sobrepasar la longitud maxima de 30 caracteres")
+	@NotBlank(message = "{msg.error.notBlank}")
+	@Size(max = 30, message = "{msg.error.size30}")
 	private String apellido1;
 
 	private String apellido2;
 
-	@DecimalMax(value = "0.946", inclusive = true, message = "La comisión no puede ser menor a 0.276")
-	@DecimalMin(value = "0.276", inclusive = true, message = "La comisión no puede ser mayor a 0.946")
+	@DecimalMax(value = "0.946", inclusive = true, message = "{msg.error.comisionMax}")
+	@DecimalMin(value = "0.276", inclusive = true, message = "{msg.error.comisionMin}")
 	private BigDecimal comision;
+
+	@NotBlank(message = "{msg.error.notBlank}")
+	@Email(message = "{msg.error.email}", regexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+\\.[a-zA-Z.]{2,5}")
+	private String email;
 	
 }

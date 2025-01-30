@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 import org.iesvdm.modelo.Cliente;
+import org.iesvdm.modelo.Comercial;
 import org.iesvdm.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,10 +74,16 @@ public class ClienteController {
 	}
 
 	@PostMapping("/clientes/editar/{id}")
-	public RedirectView editarSubmit(@ModelAttribute("cliente") Cliente cliente) {
+	public String editarSubmit(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult bindingResult, Model model) {
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("cliente", cliente);
+			return "editar-clientes";
+		}
+
 		clienteService.replaceCliente(cliente);
 
-		return new RedirectView("/clientes");
+		return "redirect:/clientes";
 
 	}
 
