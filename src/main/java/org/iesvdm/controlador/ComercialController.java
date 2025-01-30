@@ -3,6 +3,7 @@ package org.iesvdm.controlador;
 import java.util.Comparator;
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.iesvdm.dao.ComercialDAO;
 import org.iesvdm.dao.ComercialDAOImpl;
 import org.iesvdm.dao.PedidoDAO;
@@ -19,6 +20,7 @@ import org.iesvdm.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -65,11 +67,16 @@ public class ComercialController {
     }
 
     @PostMapping("/comerciales/crear")
-    public RedirectView submitCrear(@ModelAttribute("comercial") Comercial comercial) {
+    public String submitCrear(@Valid @ModelAttribute("comercial") Comercial comercial, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("comercial", comercial);
+            return "crear-comerciales";
+        }
 
         comercialService.newComercial(comercial);
 
-        return new RedirectView("/comerciales") ;
+        return "redirect:/comerciales";
 
     }
 

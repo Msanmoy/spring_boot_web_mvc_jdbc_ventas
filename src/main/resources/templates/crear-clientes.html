@@ -9,26 +9,41 @@
 <body>
 <div class="container mt-5">
     <h1 class="mb-4" th:text="#{msg.cliente.crear}"></h1>
-    <form th:action="@{/clientes/crear}" method="POST" class="border p-4 rounded shadow">
+    <form th:action="@{/clientes/crear}" method="POST" class="border p-4 rounded shadow" th:object="${cliente}">
         <div class="mb-3">
             <label for="nombre" class="form-label" th:text="#{msg.form.nombre}"></label>
-            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese el nombre" required>
+            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese el nombre" th:field="*{nombre}">
+            <ul th:if="${#fields.hasErrors('nombre')}">
+                <li th:each="err : ${#fields.errors('nombre')}" th:text="${err}" class="error"></li>
+            </ul>
         </div>
         <div class="mb-3">
             <label for="apellido1" class="form-label" th:text="#{msg.form.apellido1}"></label>
-            <input type="text" id="apellido1" name="apellido1" class="form-control" placeholder="Ingrese el primer apellido" required>
+            <input type="text" id="apellido1" name="apellido1" class="form-control" placeholder="Ingrese el primer apellido" th:field="*{apellido1}">
+            <ul th:if="${#fields.hasErrors('apellido1')}">
+                <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" class="error"></li>
+            </ul>
         </div>
         <div class="mb-3">
             <label for="apellido2" class="form-label" th:text="#{msg.form.apellido2}"></label>
-            <input type="text" id="apellido2" name="apellido2" class="form-control" placeholder="Ingrese el segundo apellido">
+            <input type="text" id="apellido2" name="apellido2" class="form-control" placeholder="Ingrese el segundo apellido" th:field="*{apellido2}">
+            <ul th:if="${#fields.hasErrors('apellido2')}">
+                <li th:each="err : ${#fields.errors('apellido2')}" th:text="${err}" class="error"></li>
+            </ul>
         </div>
         <div class="mb-3">
             <label for="ciudad" class="form-label" th:text="#{msg.form.ciudad}"></label>
-            <input type="text" id="ciudad" name="ciudad" class="form-control" placeholder="Ingrese la ciudad" required>
+            <input type="text" id="ciudad" name="ciudad" class="form-control" placeholder="Ingrese la ciudad" th:field="*{ciudad}">
+            <ul th:if="${#fields.hasErrors('ciudad')}">
+                <li th:each="err : ${#fields.errors('ciudad')}" th:text="${err}" class="error"></li>
+            </ul>
         </div>
         <div class="mb-3">
             <label for="categoria" class="form-label" th:text="#{msg.form.categoria}"></label>
-            <input type="number" id="categoria" name="categoria" class="form-control" placeholder="Ingrese la categoría" required>
+            <input type="number" id="categoria" name="categoria" class="form-control" placeholder="Ingrese la categoría" th:field="*{categoria}">
+            <ul th:if="${#fields.hasErrors('categoria')}">
+                <li th:each="err : ${#fields.errors('categoria')}" th:text="${err}" class="error"></li>
+            </ul>
         </div>
         <button type="submit" class="btn btn-primary" th:text="#{msg.cliente.crear}"></button>
     </form>
